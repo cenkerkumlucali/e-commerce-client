@@ -23,6 +23,8 @@
     "alertifyjs": "^1.13.1",
     "bootstrap": "^5.2.2",
     "jquery": "^3.6.1",
+    "ngx-spinner": "^13.1.1",
+    "ngx-toastr": "^13.2.0",
     "rxjs": "~7.4.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
