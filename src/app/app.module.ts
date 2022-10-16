@@ -5,24 +5,30 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {AdminModule} from "./admin/admin.module";
 import {UiModule} from "./ui/ui.module";
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ToastrModule} from "ngx-toastr";
 import {NgxSpinnerModule} from "ngx-spinner";
+import {HttpClientModule} from "@angular/common/http";
+import { DeleteDirective } from './directives/admin/delete.directive';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    AdminModule, UiModule,
-    BrowserAnimationsModule,
-    NgxSpinnerModule,
-    ToastrModule.forRoot()
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent
+    ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        AdminModule, UiModule,
+        BrowserAnimationsModule,
+        NgxSpinnerModule,
+        HttpClientModule,
+        ToastrModule.forRoot()
+    ],
+    providers: [
+        {provide: "baseUrl", useValue: "https://localhost:7129/api", multi: true}
+    ],
+
+    bootstrap: [AppComponent]
 })
 export class AppModule {
 }
