@@ -4,6 +4,7 @@ import {CreateProduct} from "../../../../contracts/create-product";
 import {BaseComponent, SpinnerType} from "../../../../base/base.component";
 import {NgxSpinnerService} from "ngx-spinner";
 import {AlertifyService, MessageType, Position} from "../../../../services/admin/alertify.service";
+import {FileUploadOptions} from "../../../../services/common/file-upload/file-upload.component";
 
 @Component({
   selector: 'app-create',
@@ -22,6 +23,13 @@ export class CreateComponent extends BaseComponent implements OnInit {
   }
 
   @Output() createdProduct: EventEmitter<CreateProduct> = new EventEmitter<CreateProduct>();
+  @Output() fileUploadOptions: Partial<FileUploadOptions> = {
+    action: "upload",
+    controller: "products",
+    explanation: "Resimleri sürükleyin veya seçin...",
+    isAdminPage: true,
+    accept: ".png, .jpg, .jpeg, .json"
+  };
 
   create(name: HTMLInputElement, stock: HTMLInputElement, price: HTMLInputElement) {
     this.showSpinner(SpinnerType.BallAtom);
@@ -31,20 +39,20 @@ export class CreateComponent extends BaseComponent implements OnInit {
     create_product.price = parseFloat(price.value);
 
 
-    this.productService.create(create_product, () =>{
+    this.productService.create(create_product, () => {
       this.hideSpinner(SpinnerType.BallAtom);
-      this.alertify.message("Ürün başarıyla eklenmiştir.",{
-        dismissOthers:true,
-        messageType:MessageType.Success,
-        position:Position.TopRight
+      this.alertify.message("Ürün başarıyla eklenmiştir.", {
+        dismissOthers: true,
+        messageType: MessageType.Success,
+        position: Position.TopRight
       })
       this.createdProduct.emit(create_product);
-    },errorMessage => {
-      errorMessage.forEach((value,index)=>{
-        this.alertify.message(value,{
-          dismissOthers:false,
-          position:Position.TopRight,
-          messageType:MessageType.Error
+    }, errorMessage => {
+      errorMessage.forEach((value, index) => {
+        this.alertify.message(value, {
+          dismissOthers: false,
+          position: Position.TopRight,
+          messageType: MessageType.Error
         })
       })
 
