@@ -1,0 +1,30 @@
+<div class="row">
+  <div class="col-md-3"></div>
+  <div class="col-md-6">
+    <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)">
+      <div class="mb-3">
+        <label for="adSoyad" class="form-label">Ad Soyad</label>
+        <input placeholder="Ad Soyad" [ngClass]="{'is-invalid':submitted && component.adSoyad?.errors}" formControlName = "adSoyad" type="email" class="form-control" id="adSoyad" aria-describedby="emailHelp">
+        <div id="emailHelp" class="form-text invalid-feedback" *ngIf="submitted && component.adSoyad.errors.required">Lütfen ad soyadı boş geçmeyiniz</div>
+        <div class="form-text invalid-feedback" *ngIf="submitted && (component.adSoyad.errors.maxlength || component.adSoyad.errors.minlength)">Lütfen ad soyadı 3 ile 50 karakter arasında yazınız.</div>
+      </div>
+      <div class="mb-3">
+        <label for="userName" class="form-label">Kullanıcı Adı</label>
+        <input placeholder="Kullanıcı Adı" formControlName = "userName" type="email" class="form-control" id="userName" aria-describedby="emailHelp">
+      </div>
+      <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input placeholder="Email" formControlName = "email" type="email" class="form-control" id="email" aria-describedby="emailHelp">
+      </div>
+      <div class="mb-3">
+        <label for="password" class="form-label">Şifre</label>
+        <input placeholder="Şifre" formControlName = "password" type="password" class="form-control" id="password">
+      </div>
+      <div class="mb-3">
+        <label for="verifyPassword" class="form-label">Şifre Tekrar</label>
+        <input placeholder="Şifre Tekrar" formControlName = "verifyPassword" type="password" class="form-control" id="verifyPassword">
+      </div>
+      <button type="submit" class="btn btn-primary">Kayıt Ol</button>
+    </form>
+  </div>
+</div>
