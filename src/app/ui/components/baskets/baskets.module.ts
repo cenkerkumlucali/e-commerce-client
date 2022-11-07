@@ -6,14 +6,17 @@ import {RouterModule} from "@angular/router";
 
 
 @NgModule({
-  declarations: [
-    BasketsComponent
-  ],
-  imports: [
-    CommonModule,
-    RouterModule.forChild([
-      {path: "", component: BasketsComponent}
-    ])
-  ]
+    declarations: [
+        BasketsComponent
+    ],
+    exports: [
+        BasketsComponent
+    ],
+    imports: [
+        CommonModule,
+        RouterModule.forChild([
+            {path: "", component: BasketsComponent}
+        ])
+    ]
 })
 export class BasketsModule { }
