@@ -25,6 +25,7 @@ export class DialogService {
       }
     });
   }
+
 }
 export class DialogParameter{
   componentType:ComponentType<any>;

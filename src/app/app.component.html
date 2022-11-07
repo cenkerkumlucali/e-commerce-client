@@ -19,30 +19,20 @@
               <a class="nav-link active" aria-current="page" routerLink="basket">Sepet</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" routerLink="register">Kayıt Ol</a>
-            </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Dropdown
-              </a>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">Action</a></li>
-                <li><a class="dropdown-item" href="#">Another action</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="#">Something else here</a></li>
-              </ul>
+              <a class="nav-link active" aria-current="page" routerLink="register" *ngIf="!authService.isAuthenticated">Kayıt Ol</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link disabled">Disabled</a>
+              <a class="nav-link active" aria-current="page" routerLink="login" *ngIf="!authService.isAuthenticated">Giriş Yap</a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" style="color: red; cursor:pointer;" (click)="signOut()"  *ngIf="authService.isAuthenticated">Çıkış Yap</a>
+            </li>
+
+
             <li>
-              <a routerLink="admin" class="btn btn-outline-success" type="submit">Yönetim Paneli</a>
+              <a routerLink="admin" class="btn btn-outline-success" type="submit" *ngIf="authService.isAuthenticated">Yönetim Paneli</a>
             </li>
           </ul>
-          <form class="d-flex" role="search">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">Search</button>
-          </form>
         </div>
       </div>
     </nav>

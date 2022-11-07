@@ -120,5 +120,7 @@
       }
     }
   },
-  "defaultProject": "ECommerceClient"
+  "cli": {
+    "analytics": "2c8313ef-fabc-4ea9-a0ac-c3fd13cd1e40"
+  }
 }
