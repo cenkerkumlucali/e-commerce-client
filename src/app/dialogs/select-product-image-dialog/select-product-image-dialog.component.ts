@@ -3,7 +3,7 @@ import {BaseDialog} from "../base/base-dialog";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {FileUploadOptions} from "../../services/common/file-upload/file-upload.component";
 import {ProductService} from "../../services/common/models/product.service";
-import {ListProductImage} from "../../contracts/list-product-image";
+import {ListProductImage} from "../../contracts/product/list-product-image";
 import {NgxSpinnerService} from "ngx-spinner";
 import {SpinnerType} from "../../base/base.component";
 import {DialogService} from "../../services/common/dialog.service";

@@ -2,7 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {BaseComponent, SpinnerType} from "../../../base/base.component";
 import {NgxSpinnerService} from "ngx-spinner";
 import {HttpClientService} from "../../../services/common/http-client.service";
-import {CreateProduct} from "../../../contracts/create-product";
+import {CreateProduct} from "../../../contracts/product/create-product";
 import {ListComponent} from "./list/list.component";
 
 @Component({
