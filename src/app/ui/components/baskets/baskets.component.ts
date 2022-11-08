@@ -4,6 +4,18 @@ import {NgxSpinnerService} from "ngx-spinner";
 import {BasketService} from "../../../services/common/models/basket.service";
 // @ts-ignore
 import {ListBasketItem} from "../../../contracts/basket/list-basket-item";
+import {OrderService} from "../../../services/common/models/order.service";
+import {CustomToastrService, ToastrMessageType, ToastrPosition} from "../../../services/ui/custom-toastr.service";
+import {Router} from "@angular/router";
+import {DialogService} from "../../../services/common/dialog.service";
+import {
+  BasketItemDeleteState,
+  BasketItemRemoveDialogComponent
+} from "../../../dialogs/basket-item-remove-dialog/basket-item-remove-dialog.component";
+import {
+  ShoppingCompleteComponent,
+  ShoppingCompleteState
+} from "../../../dialogs/shopping-complete/shopping-complete.component";
 
 declare var $: any;
 
@@ -15,7 +27,11 @@ declare var $: any;
 export class BasketsComponent extends BaseComponent implements OnInit {
 
   constructor(spinner: NgxSpinnerService,
-              private basketService: BasketService) {
+              private basketService: BasketService,
+              private orderService: OrderService,
+              private toatrService: CustomToastrService,
+              private router: Router,
+              private dialogService: DialogService) {
     super(spinner);
   }
 
@@ -38,9 +54,41 @@ export class BasketsComponent extends BaseComponent implements OnInit {
     this.hideSpinner(SpinnerType.BallAtom);
   }
 
-  async removeBasketItem(basketItemId: string) {
-    this.showSpinner(SpinnerType.BallAtom);
-    await this.basketService.remove(basketItemId)
-    $("." + basketItemId).fadeOut(500, () => this.hideSpinner(SpinnerType.BallAtom)) ;
+  removeBasketItem(basketItemId: string) {
+    $("#basketModel").modal("hide");
+    this.dialogService.openDialog({
+      componentType: BasketItemRemoveDialogComponent,
+      data: BasketItemDeleteState.Yes,
+      afterClosed: async () => {
+        this.showSpinner(SpinnerType.BallAtom);
+        await this.basketService.remove(basketItemId)
+        $("." + basketItemId).fadeOut(500, () => {
+          this.hideSpinner(SpinnerType.BallAtom);
+        });
+        $("#basketModel").modal("show");
+      }
+    });
+  }
+
+  shoppingComplete() {
+    $("#basketModel").modal("hide");
+
+    this.dialogService.openDialog({
+      componentType: ShoppingCompleteComponent,
+      data: ShoppingCompleteState.Yes,
+      afterClosed: async () => {
+        this.showSpinner(SpinnerType.BallAtom);
+        await this.orderService.create({
+          address: "Yenimahalle",
+          description: "Falanca filanca"
+        });
+        this.hideSpinner(SpinnerType.BallAtom);
+        this.toatrService.message("Sipariş alınmıştır!", "Sipariş Oluşturuldu!", {
+          messageType: ToastrMessageType.Success,
+          position: ToastrPosition.TopRight
+        });
+        await this.router.navigate(["/"]);
+      }
+    });
   }
 }

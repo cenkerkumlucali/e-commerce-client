@@ -1,3 +1,6 @@
+import {environment} from "../../environments/environment";
+
 export enum HubUrls {
-  ProductHub = "https://localhost:7129/products-hub"
+  ProductHub = "products-hub",
+  OrderHub = "orders-hub"
 }

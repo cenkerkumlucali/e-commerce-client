@@ -7,9 +7,8 @@ import {BaseComponent} from "../../base/base.component";
 export class DynamicLoadComponentService {
 
   //ViewContainerRef          : Dinamik olarak yüklenilecek komponenti içerisinde barındıran containerdır. (Her dinamik yükleme sürecinde önceki viewleri clear etmemiz gerekmektedir.)
-  //ComponentFactory          : Komponentlerin instancelerini oluşturmak için kullanılan nesnedir.
-  //ComponentFactoryResolver  : Belirli bir komponent için ComponentFactoryi resolve eden sınıftır. İçerisindeki fonsksiyon aracılığıyla ilgili componente dair bir ComponentFactory nesnesi oluşturup, döner.
-  constructor(private componentFactoryResolver: ComponentFactoryResolver) {
+
+  constructor() {
   }
 
   async loadComponent(component: ComponentType, viewContainerRef: ViewContainerRef) {
@@ -20,7 +19,7 @@ export class DynamicLoadComponentService {
         break;
     }
     viewContainerRef.clear();
-    return viewContainerRef.createComponent(this.componentFactoryResolver.resolveComponentFactory(_component));
+    return viewContainerRef.createComponent(_component);
   }
 }
 

@@ -1,0 +1,15 @@
+table {
+  width: 100%;
+}
+
+img {
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+}
+
+.delete-image {
+  margin-left: 10px;
+}
+
+/*# sourceMappingURL=list.component.css.map */
