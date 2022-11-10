@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Injectable, ProviderToken} from '@angular/core';
 import {firstValueFrom, Observable} from "rxjs";
 import {TokenResponse} from "../../../contracts/token/tokenResponse";
 import {CustomToastrService, ToastrMessageType, ToastrPosition} from "../../ui/custom-toastr.service";
@@ -30,7 +30,7 @@ export class UserAuthService {
     callBackFunction();
   }
 
-  async refreshTokenLogin(refreshToken:string, callBackFunction?: (state) => void): Promise<any>{
+  async refreshTokenLogin(refreshToken: string, callBackFunction?: (state) => void): Promise<any> {
     const observable: Observable<any | TokenResponse> = this.httpClientService.post<any | TokenResponse>({
       controller: "auth",
       action: "refreshtoken"
@@ -42,7 +42,7 @@ export class UserAuthService {
         localStorage.setItem("refreshToken", token.token.refreshToken);
       }
       callBackFunction(token ? true : false);
-    }catch {
+    } catch {
       callBackFunction(false);
     }
 
@@ -81,4 +81,24 @@ export class UserAuthService {
     }
     callBackFunction();
   }
+
+  async passwordReset(email: string, callBackFunction?: () => void) {
+    const observable = this.httpClientService.post({
+      controller: "auth",
+      action: "PasswordReset"
+    }, {email: email});
+    await firstValueFrom(observable);
+    callBackFunction();
+  }
+
+  async verifyResetToken(resetToken: string, userId: string, callBackFunction?: () => void): Promise<boolean> {
+    const observable: Observable<any> = this.httpClientService.post({
+      controller: "auth",
+      action: "verify-reset-token"
+    }, {resetToken: resetToken, userId: userId});
+    const state: boolean = await firstValueFrom(observable);
+    callBackFunction();
+    return state;
+  }
+
 }
