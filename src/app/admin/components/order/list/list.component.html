@@ -16,6 +16,11 @@
       <td mat-cell *matCellDef="let element"> {{element.totalPrice}} </td>
     </ng-container>
 
+    <ng-container matColumnDef="completed">
+      <th mat-header-cell *matHeaderCellDef width="30"></th>
+      <td mat-cell *matCellDef="let element"><img *ngIf="element.completed" src="assets/complete.png" alt=""/></td>
+    </ng-container>
+
     <ng-container matColumnDef="createdDate">
       <th mat-header-cell *matHeaderCellDef> Created Date</th>
       <td mat-cell *matCellDef="let element"> {{element.createdDate}} </td>
