@@ -38,8 +38,16 @@ export class OrderService {
       controller: "orders",
     }, id)
     const promiseData = firstValueFrom(observable);
-    promiseData.then(value => successCallBack).catch(error => errorCallBack);
+    promiseData.then(value => successCallBack).catch(error => errorCallBack(error));
     return await promiseData;
   }
 
+  async completeOrder(id: string, callBackFuntion: () => void) {
+    const observable: Observable<any> = this.httpClientService.get<any>({
+      controller: "orders",
+      action: "complete-order",
+    }, id)
+    await firstValueFrom(observable);
+    callBackFuntion();
+  }
 }

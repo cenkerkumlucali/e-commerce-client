@@ -3,6 +3,14 @@ import {BaseDialog} from "../base/base-dialog";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {OrderService} from "../../services/common/models/order.service";
 import {SingleOrder} from "../../contracts/order/single-order";
+import {DialogService} from "../../services/common/dialog.service";
+import {
+  CompleteOrderCompleteState,
+  CompleteOrderDialogComponent
+} from "../complete-order-dialog/complete-order-dialog.component";
+import {NgxSpinnerService} from "ngx-spinner";
+import {SpinnerType} from "../../base/base.component";
+import {CustomToastrService, ToastrMessageType, ToastrPosition} from "../../services/ui/custom-toastr.service";
 
 @Component({
   selector: 'app-order-detail-dialog',
@@ -13,7 +21,10 @@ export class OrderDetailDialogComponent extends BaseDialog<OrderDetailDialogComp
 
   constructor(dialogRef: MatDialogRef<OrderDetailDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: OrderDetailDialogState | string,
-              private orderService: OrderService) {
+              private orderService: OrderService,
+              private dialogService: DialogService,
+              private toastrService:CustomToastrService,
+              private spinner:NgxSpinnerService) {
     super(dialogRef)
   }
 
@@ -32,6 +43,22 @@ export class OrderDetailDialogComponent extends BaseDialog<OrderDetailDialogComp
       basketItem.price * basketItem.quantity).reduce((price, current) => price + current);
   }
 
+  completeOrder() {
+    this.dialogService.openDialog({
+      componentType: CompleteOrderDialogComponent,
+      data: CompleteOrderCompleteState.Yes,
+      afterClosed: async () => {
+        await this.spinner.show(SpinnerType.BallAtom);
+        await this.orderService.completeOrder(this.data as string,()=>{
+          this.toastrService.message("Sipariş tamamlanmıştır. Müşteriye bilgi verilmiştir","Tamamlandı",{
+            messageType:ToastrMessageType.Success,
+            position:ToastrPosition.TopRight
+          })
+          this.spinner.hide(SpinnerType.BallAtom);
+        });
+      }
+    })
+  }
 }
 
 export enum OrderDetailDialogState {

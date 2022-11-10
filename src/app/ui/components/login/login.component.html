@@ -2,19 +2,20 @@
   <div class="col-md-3"></div>
   <div class="col-md-6">
 
-      <div class="mb-3">
-        <label for="userName" class="form-label">Kullanıcı Adı & Email</label>
-        <input #userNameOrEmail placeholder="Kullanıcı Adı" class="form-control" id="userName">
-        <div class="form-text invalid-feedback">Lütfen kullanıcı adını boş geçmeyiniz</div>
-      </div>
+    <div class="mb-3">
+      <label for="userName" class="form-label">Kullanıcı Adı & Email</label>
+      <input #userNameOrEmail placeholder="Kullanıcı Adı" class="form-control" id="userName">
+      <div class="form-text invalid-feedback">Lütfen kullanıcı adını boş geçmeyiniz</div>
+    </div>
 
-      <div class="mb-3">
-        <label for="password" class="form-label">Şifre</label>
-        <input #password placeholder="Şifre" type="password" class="form-control" id="password">
-      </div>
-      <button style="margin-top: 5px"  class="btn btn-primary"
-              (click)="login(userNameOrEmail.value,password.value)">Giriş Yap
-      </button>
+    <div class="mb-3">
+      <label for="password" class="form-label">Şifre</label>
+      <input #password placeholder="Şifre" type="password" class="form-control" id="password">
+    </div>
+    <button style="margin-top: 5px" class="btn btn-primary"
+            (click)="login(userNameOrEmail.value,password.value)">Giriş Yap
+    </button>
+    <a routerLink="/password-reset" style="margin-top: 5px;margin-left: 5px" class="btn btn-secondary">Şifremi Unuttum</a><br>
     <img class="facebook" src="assets/facebook.png" (click)="facebookLogin()"/>
     <asl-google-signin-button></asl-google-signin-button>
   </div>
