@@ -5,6 +5,7 @@ import {DashboardModule} from "./dashboard/dashboard.module";
 import {OrderModule} from "./order/order.module";
 import {ProductsModule} from "./products/products.module";
 import {AuthorizeMenuModule} from "./authorize-menu/authorize-menu.module";
+import {RoleModule} from "./role/role.module";
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import {AuthorizeMenuModule} from "./authorize-menu/authorize-menu.module";
     DashboardModule,
     OrderModule,
     ProductsModule,
-    AuthorizeMenuModule
+    AuthorizeMenuModule,
+    RoleModule
   ]
 })
 export class ComponentsModule {
