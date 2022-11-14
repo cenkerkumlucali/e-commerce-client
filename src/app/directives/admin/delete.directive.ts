@@ -51,7 +51,7 @@ export class DeleteDirective {
             height: "toogle"
           }, 700, () => {
             this.callback.emit();
-            this.alertifyService.message("Ürün başarıyla silinmiştir.", {
+            this.alertifyService.message(`${this.controller == 'roles' ? 'Rol' : 'Ürün'} başarıyla silinmiştir.`, {
               dismissOthers: true,
               messageType: MessageType.Success,
               position: Position.TopRight
@@ -59,7 +59,7 @@ export class DeleteDirective {
           });
         }, (errorResponse: HttpErrorResponse) => {
           this.spinner.hide(SpinnerType.BallAtom);
-          this.alertifyService.message("Ürün silinirken beklenmedik bir hata oluştu.", {
+          this.alertifyService.message(`${this.controller == 'roles' ? 'Rol' : 'Ürün'} silinirken beklenmedik bir hata oluştu.`, {
             dismissOthers: true,
             messageType: MessageType.Error,
             position: Position.TopRight
